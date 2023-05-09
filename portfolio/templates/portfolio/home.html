@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block title %}Deveric{% endblock %}
+{% block css_files %}
+    <link href="stylesheet" href="{% static 'base.css' %}" />
+    <link href="stylesheet" href="{% static 'home.css' %}" />
+{% endblock %}
+{% block content %}
+    <section id="welcome">
+        <header>
+            <img src="{% static 'avatar.jpg' %}" alt="profile picture">
+            <h2>Eric's Blog</h2>
+        </header>
+        <p>
+            Welcome! I'm a code-blooded software engineer. I have a keen interest in software development, technology, DIY projects et cetera.</p>
+    </section>
+    <section id="latest-posts">
+        <h2>Latest Posts</h2>
+        <ul>
+        {% for post in posts %}
+          {% include 'portfolio/includes/post_slug.html' %}
+        {% endfor %}
+        </ul>
+    </section>
+    <section id='about'>
+        <h2>My Spiel</h2>
+        <p>
+            I'm a software engineer with a passion for building things. I'm a Full Stack Decentralized Application Developer with various interests and skils not limited to Distributed Development, Data Science, Artificial Inteligence and Machine Learning. I enjoy building things from the ground up and learning new things. I'm an experienced developer and I'm always looking for new opportunities to learn and grow through self-learning and contributing to opensource software and various stack exchange forums. I participate actively on programming platforms, <a href='https://www.leetcode.com/ericgitangu'>LeetCode</a>, TopCoder, <a href='https://www.hackerrank.com/theace'>Hackerrank</a> and <a href='https://www.codingame.com/profile/e5d13e7fbe4b82eb26c601fd545bf8af1580081'>CodingGames </a>
+        </p>
+    </section
+
+{%endblock%}

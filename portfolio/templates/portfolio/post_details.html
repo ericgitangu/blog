@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{post.title}}{% endblock %}
+
+{% block css_files%}
+    <link rel='stylesheet' href="{% static 'post_details.css' %}">
+    <link rel='stylesheet' href="{% static 'base.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="success" style="display:none">
+        <h2> Your feedback is much appreciated! </p>
+        <a href ="{% url 'posts' %}" class="center">Back to all posts</a>>
+    </div>
+    {% if comment.errors %}
+        <div id="alert">
+            <h2> Oops! Your comment was not submitted, fix these errors: {{ comment.errors }} first and try again. </p>
+            <a href="#comment-form">Fix the error(s)</a>
+        </div>
+    {% endif %}
+    {% if comment.is_valid %}
+        <div id="success">
+            <h2> Your feedback is much appreciated! </p>
+            <a href ="{% url 'posts' %}" class="center">Back to all posts</a>
+        </div>
+    {% endif %}
+    <section id='summary'>
+        <h2>{{post.title}}</h2>
+        <div>
+            {% for tag in post_tags%}
+                <span class='tag'>{{ tag.caption }}</span>
+            {%endfor%}
+        </div>
+        <div id="read-later">
+            <form action="{% url 'saved-posts' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="post_id" value="{{post.id}}">
+                <button type="submit">
+                    {% if not saved_for_later %}
+                        Read Later
+                    {% else %}
+                        Remove from "Read Later"
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+        <article>
+            <img src="{{ post.image.url }}" alt={{ post.title}}/>
+            <address>
+                <p>Written by <a href="mailto:{{post.author.email}}">{{post.author}}</a></p>
+                <p>Published on {{post.date|date:'D, d M Y H'}}</p>
+            </address>
+        </article>
+    </section>
+    <main>
+        {{post.content|safe}}
+        <br><br>
+        <a href ="{% url 'posts' %}" class="center">Back to all posts</a>
+    </main>
+    <main>
+        <h3>Drop a comment?</h3>
+        <div id="comment-form">
+            <form id="comments-form" action="{% url 'post_detail' post.slug %}" method="POST">
+                {% csrf_token %}
+                {% for comment in comment_form %}
+                    <div class="form-control {%if comment.errors %} invalid {% endif %}">
+                        <p> {{ comment.label_tag }} </p>
+                        <p> {{ comment }} </p>
+                        <p> {{ comment.errors }} </p>
+                    </div>
+                {% endfor %}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </main>
+    <main>
+        <section id="comments">
+            <h1>Comments</h1>
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <h3>{{comment.name}}</h3>
+                        <p>{{comment.comment}}</p>
+                        <p>{{comment.date|date:'D, d M Y'}} {{comment.date|date:'H;i A'}}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <script>
+        setTimeout(function(){
+            document.getElementById('alert').style.display = 'none';
+        }, 3000);
+        setTimeout(function(){
+            document.getElementById('success').style.display = 'none';
+        }, 3000);
+    </script>
+{% endblock%}

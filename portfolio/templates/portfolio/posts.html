@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title%}{{title}}{%endblock%}
+{% block css_files%}
+    <link rel="stylesheet" href="{% static 'posts.css' %}">
+    <link rel='stylesheet' href="{% static 'base.css' %}">
+{% endblock %}
+{%block content%}
+
+<section id="all-posts" style="margin-top:5rem">
+    <ul>
+        {% for post in posts %}
+            {% include 'portfolio/includes/post_slug.html' %}
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}

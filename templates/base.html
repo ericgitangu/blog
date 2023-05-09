@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+        <meta name="description" content="Eric Gitangu, Developer, Engineer and Critical thinker">
+        <meta name="author" content="Eric Gitangu">
+        <link rel="icon" href="{% static 'favicon.ico' %}"/>
+        <title>{% block title %}Deveric{% endblock %}</title>
+        {% block css_files %}{% endblock %}
+
+        <!-- Custom styles for this template -->
+        <link href="static/base.css" rel="stylesheet">
+        <link href="{% static 'home.css' %}" rel="stylesheet">
+         
+        {% comment %} {% block js_files %}{% endblock %}  {% endcomment %}
+    </head>
+    <body>
+        <header id='main-navigation'>
+            <h1><a href="{% url 'home' %}">Home</a></h1>
+            <nav>
+                <a href="{% url 'posts' %}">All Posts</a>
+                &nbsp;|&nbsp;
+                <a href="{% url 'saved-posts' %}">Saved Posts</a>
+                &nbsp;|&nbsp;
+                <a href="https://developer.ericgitangu.com">My Website</a>
+            </nav>
+        </header>
+        {% block content %}{% endblock %}      
+        {% comment %} {% block footer %}{% endblock %}
+        {% block scripts %}{% endblock %} {% endcomment %}
+    </body>
+ 
+</html>

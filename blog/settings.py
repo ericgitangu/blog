@@ -145,12 +145,12 @@ DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL =  '/images/'
 
-STORAGES = {
-    # ...
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# }
 
 LOGGING = {
    'version': 1,

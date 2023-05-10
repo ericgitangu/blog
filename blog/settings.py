@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['http://deveric-blog-io.azurewebsites.net', 'localhost']
+ALLOWED_HOSTS = ['https://deveric-blog-io.azurewebsites.net/', 'localhost']
 
 
 # Application definition

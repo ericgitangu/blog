@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://deveric-blog-io.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['t']
 
 
 # Application definition

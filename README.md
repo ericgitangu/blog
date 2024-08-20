@@ -37,7 +37,8 @@ Get inspired by my DIY projects, complete with step-by-step guides and creative 
 
 ## Tech Stack
 
-This blog is built using **Django**, a high-level Python web framework that encourages rapid development and clean, pragmatic design.
+This blog is built using **Django**, a high-level Python web framework that encourages rapid development and clean, pragmatic design. Using the in-built
+admin functionality to update and create posts. (Crudly)
 
 ## Get in Touch
 

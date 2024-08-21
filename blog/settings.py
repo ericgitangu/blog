@@ -122,34 +122,50 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-STATIC_ROOT = 'staticfiles/'
-
-STATIC_URL = 'static/'
+# if not DEBUG:
+#     STATIC_ROOT = BASE_DIR / 'staticfiles'
+#     STATICFILES_DIRS = [
+#         BASE_DIR / 'static',
+#     ]
 
 if not DEBUG:
+    # Azure Blob Storage Configuration
+    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+    AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
+    AZURE_CONTAINER = os.getenv('AZURE_CONTAINER')
+    AZURE_URL_EXPIRATION_SECS = 3600  # Optional: set URL expiration for security
+
+    # Static files configuration
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [
         BASE_DIR / 'static',
     ]
+    STATIC_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+    # Media files configuration
+    MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/media/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+else:
+    DEFAULT_FILE_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    MEDIA_ROOT = BASE_DIR / 'uploads'
+    MEDIA_URL =  '/images/'
+    
+    # Static files (CSS, JavaScript, Images)
+    # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-DEFAULT_FILE_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_ROOT = BASE_DIR / 'uploads'
-MEDIA_URL =  '/images/'
+    STATIC_ROOT = 'staticfiles/'
+    STATIC_URL = 'static/'
 
 # STORAGES = {
 #     "staticfiles": {
 #         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 #     },
 # }
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGGING = {
    'version': 1,

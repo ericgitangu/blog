@@ -129,36 +129,33 @@ USE_TZ = True
 #     ]
 
 if not DEBUG:
-    # Azure Blob Storage Configuration
+    # Azure Blob Storage Configuration for Media Files
     DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
     AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
-    AZURE_CONTAINER = os.getenv('AZURE_CONTAINER')
+    AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
+    AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
     AZURE_URL_EXPIRATION_SECS = 3600  # Optional: set URL expiration for security
 
     # Static files configuration
+    STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+    STATIC_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_STATIC_CONTAINER}/'
+
+    # Media files configuration
+    MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_MEDIA_CONTAINER}/'
+
+else:
+    # Local storage configuration
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    MEDIA_ROOT = BASE_DIR / 'uploads'
+    MEDIA_URL = '/media/'
+
     STATIC_ROOT = BASE_DIR / 'staticfiles'
     STATICFILES_DIRS = [
         BASE_DIR / 'static',
     ]
-    STATIC_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/static/'
+    STATIC_URL = '/static/'
 
-    # Media files configuration
-    MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/media/'
-
-else:
-    DEFAULT_FILE_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    MEDIA_ROOT = BASE_DIR / 'uploads'
-    MEDIA_URL =  '/images/'
-    
-    # Static files (CSS, JavaScript, Images)
-    # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
-    STATIC_ROOT = 'staticfiles/'
-    STATICFILES_DIRS = [
-         BASE_DIR / 'static',
-     ]
-    STATIC_URL = 'static/'
 
 # STORAGES = {
 #     "staticfiles": {

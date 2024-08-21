@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_ROOT = 'staticfiles/'
 
-STATIC_URL = 'static/'
+STATIC_URL = 'var/www/static'
 
 if not DEBUG:
     STATIC_FILES_DIRS = [
@@ -146,7 +146,6 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 MEDIA_URL =  '/images/'
 
 # STORAGES = {
-#     # ...
 #     "staticfiles": {
 #         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
 #     },

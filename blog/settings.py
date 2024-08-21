@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_ROOT = 'staticfiles/'
 
-STATIC_URL = 'var/www/static'
+STATIC_URL = 'static/'
 
 if not DEBUG:
     STATIC_FILES_DIRS = [

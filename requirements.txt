@@ -9,6 +9,7 @@ Django==5.1
 django-storages==1.14.4
 idna==3.7
 isodate==0.6.1
+psycopg==3.2.1
 pycparser==2.22
 requests==2.32.3
 six==1.16.0

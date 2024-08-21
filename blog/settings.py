@@ -136,7 +136,6 @@ if not DEBUG:
     AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
     AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
-    AZURE_URL_EXPIRATION_SECS = 3600  # Optional: set URL expiration for security
 
     # Static files configuration
     STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -131,9 +131,9 @@ STATIC_ROOT = 'staticfiles/'
 STATIC_URL = 'static/'
 
 if not DEBUG:
-    STATIC_FILES_DIRS = [
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_DIRS = [
         BASE_DIR / 'static',
-        'var/www/static',
     ]
 
 # Default primary key field type

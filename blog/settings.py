@@ -34,6 +34,7 @@ CSRF_TRUSTED_ORIGINS = ['https://deveric-blog.azurewebsites.net','https://develo
 # Application definition
 
 INSTALLED_APPS = [
+    'storages',
     'portfolio',
     'django.contrib.admin',
     'django.contrib.auth',

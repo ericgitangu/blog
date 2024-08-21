@@ -7,6 +7,7 @@ charset-normalizer==3.3.2
 cryptography==43.0.0
 Django==5.1
 django-storages==1.14.4
+django-storages[azure]
 idna==3.7
 isodate==0.6.1
 psycopg==3.2.1

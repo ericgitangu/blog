@@ -42,4 +42,4 @@ admin functionality to update and create posts. (Crudly functionality)
 
 ## Get in Touch
 
-If you share similar interests or have questions, feel free to reach out! Let’s connect, collaborate, and innovate together.
+If you share similar interests or have questions, feel free to reach out! Let’s connect, collaborate, and innovate together. [Linkedin](https://linkedin.com/in/ericgitangu)

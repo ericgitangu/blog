@@ -106,7 +106,8 @@ if not DEBUG:
             },
         },
     }
-
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    MEDIA_ROOT = BASE_DIR / 'uploads'
     STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_STATIC_CONTAINER}/"
     MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_MEDIA_CONTAINER}/"
 

@@ -10,7 +10,7 @@ django-storages==1.14.4
 django-storages[azure]
 idna==3.7
 isodate==0.6.1
-pillow
+Pillow
 psycopg==3.2.1
 psycopg2-binary==2.9.
 pycparser==2.22

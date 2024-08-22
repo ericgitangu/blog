@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -79,6 +79,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+
 # Azure Blob Storage Configuration for Production
 if not DEBUG:
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
@@ -93,6 +94,8 @@ if not DEBUG:
     # Explicitly setting required variables
     AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
     
+    # STATIC_ROOT = BASE_DIR / 'staticfiles'
+
     STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{AZURE_STATIC_CONTAINER}/"
     MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/"
 

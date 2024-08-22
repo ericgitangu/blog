@@ -1,5 +1,7 @@
 from pathlib import Path
 import os
+from azure.identity import DefaultAzureCredential
+from storages.backends.azure_storage import AzureStorage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -79,27 +81,35 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
 # Azure Blob Storage Configuration for Production
 if not DEBUG:
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
     AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
 
-    # Ensure storages backend uses correct credentials
-    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-    STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-    
-    # Explicitly setting required variables
-    AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
-    
-    # STATIC_ROOT = BASE_DIR / 'staticfiles'
+    # Use DefaultAzureCredential for Managed Identity or Service Principal Authentication
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.azure_storage.AzureStorage",
+            "OPTIONS": {
+                "token_credential": DefaultAzureCredential(),
+                "account_name": AZURE_ACCOUNT_NAME,
+                "azure_container": AZURE_MEDIA_CONTAINER,
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "storages.backends.azure_storage.AzureStorage",
+            "OPTIONS": {
+                "token_credential": DefaultAzureCredential(),
+                "account_name": AZURE_ACCOUNT_NAME,
+                "azure_container": AZURE_STATIC_CONTAINER,
+            },
+        },
+    }
 
-    STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{AZURE_STATIC_CONTAINER}/"
-    MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{AZURE_MEDIA_CONTAINER}/"
+    STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_STATIC_CONTAINER}/"
+    MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_MEDIA_CONTAINER}/"
 
-# Local settings for development
 else:
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     MEDIA_ROOT = BASE_DIR / 'uploads'

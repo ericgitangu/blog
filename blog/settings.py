@@ -9,11 +9,16 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'deveric-blog.azurewebsites.net',
+    'developer.ericgitangu.com',
+    'your-custom-domain.com',  # Replace with your actual domains
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://deveric-blog.azurewebsites.net',
-    'https://developer.ericgitangu.com'
+    'https://developer.ericgitangu.com',
+    'https://your-custom-domain.com',  # Replace with your actual domains
 ]
 
 INSTALLED_APPS = [
@@ -89,25 +94,28 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 # Azure Blob Storage Configuration for Production
 if not DEBUG:
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
     AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
 
-    # Use DefaultAzureCredential for Managed Identity or Service Principal Authentication
+    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+    STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+
     STORAGES = {
         "default": {
             "BACKEND": "storages.backends.azure_storage.AzureStorage",
             "OPTIONS": {
-                "token_credential": DefaultAzureCredential(),
                 "account_name": AZURE_ACCOUNT_NAME,
-                "azure_container": AZURE_MEDIA_CONTAINER,
+                "account_key": AZURE_ACCOUNT_KEY,
+                "container_name": AZURE_MEDIA_CONTAINER,
             },
         },
         "staticfiles": {
             "BACKEND": "storages.backends.azure_storage.AzureStorage",
             "OPTIONS": {
-                "token_credential": DefaultAzureCredential(),
                 "account_name": AZURE_ACCOUNT_NAME,
-                "azure_container": AZURE_STATIC_CONTAINER,
+                "account_key": AZURE_ACCOUNT_KEY,
+                "container_name": AZURE_STATIC_CONTAINER,
             },
         },
     }
@@ -117,6 +125,7 @@ if not DEBUG:
 
 else:
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
     MEDIA_URL = '/media/'
     STATIC_URL = '/static/'
@@ -130,7 +139,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/tmp/debug.log',
+            'filename': BASE_DIR / 'logs' / 'debug.log',
         },
     },
     'loggers': {

@@ -12,13 +12,11 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'deveric-blog.azurewebsites.net',
     'developer.ericgitangu.com',
-    'your-custom-domain.com',  # Replace with your actual domains
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://deveric-blog.azurewebsites.net',
     'https://developer.ericgitangu.com',
-    'https://your-custom-domain.com',  # Replace with your actual domains
 ]
 
 INSTALLED_APPS = [

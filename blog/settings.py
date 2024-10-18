@@ -9,14 +9,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    'deveric-blog.azurewebsites.net',
-    'developer.ericgitangu.com',
-]
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://deveric-blog.azurewebsites.net',
-    'https://developer.ericgitangu.com',
+    'https://developer.ericgitangu.com'
 ]
 
 INSTALLED_APPS = [
@@ -92,28 +89,25 @@ MEDIA_ROOT = BASE_DIR / 'uploads'
 # Azure Blob Storage Configuration for Production
 if not DEBUG:
     AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-    AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
     AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
     AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-    STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
-
+    # Use DefaultAzureCredential for Managed Identity or Service Principal Authentication
     STORAGES = {
         "default": {
             "BACKEND": "storages.backends.azure_storage.AzureStorage",
             "OPTIONS": {
+                "token_credential": DefaultAzureCredential(),
                 "account_name": AZURE_ACCOUNT_NAME,
-                "account_key": AZURE_ACCOUNT_KEY,
-                "container_name": AZURE_MEDIA_CONTAINER,
+                "azure_container": AZURE_MEDIA_CONTAINER,
             },
         },
         "staticfiles": {
             "BACKEND": "storages.backends.azure_storage.AzureStorage",
             "OPTIONS": {
+                "token_credential": DefaultAzureCredential(),
                 "account_name": AZURE_ACCOUNT_NAME,
-                "account_key": AZURE_ACCOUNT_KEY,
-                "container_name": AZURE_STATIC_CONTAINER,
+                "azure_container": AZURE_STATIC_CONTAINER,
             },
         },
     }
@@ -123,14 +117,11 @@ if not DEBUG:
 
 else:
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
     MEDIA_URL = '/media/'
     STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
 
 LOGGING = {
     'version': 1,
@@ -139,7 +130,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'debug.log',
+            'filename': '/tmp/debug.log',
         },
     },
     'loggers': {

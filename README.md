@@ -19,16 +19,16 @@ A Django-powered blog showcasing insights in technology, cybersecurity, and soft
 
 ## 🛠️ Tech Stack
 
-### Backend Framework
+### Backend Framework ⚙️
 - Django 4.x
 - Python 3.11
 - WSGI Application Server
 
-### Database
+### Database 🗄️
 - PostgreSQL with psycopg2-binary driver
 - Environment-based configuration
 
-### Cloud Services (Azure)
+### Cloud Services ☁️ (Azure)
 - Azure Web Apps for hosting
 - Azure Blob Storage for static/media files
 - Azure Managed Identity authentication
@@ -38,14 +38,14 @@ A Django-powered blog showcasing insights in technology, cybersecurity, and soft
 - Whitenoise
 - PostgresSQL (Azure flexible)
 
-### Monitoring and Logging
+### 📊 Monitoring and Logging
 
 Debug logging configured for production monitoring:
 - File handler
 - Console handler
 - App-level logging - Default DEBUG
 
-### Security Configuration
+### 🔒 Security Configuration
 
 - **CSRF Protection**: Configured for production domains
 - **Secure Middleware Stack**:
@@ -56,7 +56,7 @@ Debug logging configured for production monitoring:
   - Authentication
   - XFrame Options
 
-### Production Deployment
+### 🚀 Production Deployment
 
 The application uses GitHub Actions for CI/CD to Azure Web Apps. The deployment process includes:
 - Automated testing

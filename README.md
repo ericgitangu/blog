@@ -1,45 +1,79 @@
-# Eric Gitangu's Blog
+# Eric Gitangu's Tech Blog
+<div align="center">
+    <a href="https://developer.ericgitangu.com">
+        <img src="https://developer.ericgitangu.com/_next/image?url=%2Ffavicon.png&w=96&q=75" style="border-radius: 50%" alt="deveric.io logo"/>
+        <h1 align="center">Eric Gitangu</h1>
+    </a>
+A Django-powered blog showcasing insights in technology, cybersecurity, and software development. Built with Python and Django, featuring Azure cloud integration and robust security measures.
 
-Welcome to my blog, where I share insights and experiences in cutting-edge technologies. Built using **Django**, this blog reflects my journey and expertise in:
+</div>
 
-- **Artificial Intelligence (AI)**
-- **Machine Learning (ML)**
-- **Cybersecurity**
-- **Blockchain**
-- **Cybersecurity Threat Intelligence**
-- **DIY Projects**
+## 🚀 Features
 
-## Purpose
+- **Dynamic Content Management**: Built-in Django admin interface for content creation
+- **Cloud Storage Integration**: Azure Blob Storage for media and static files
+- **Production-Ready**: Configured for production with security best practices
+- **PostgreSQL Database**: Robust data storage with PostgreSQL
+- **Secure Authentication**: Comprehensive password validation and security middleware
+- **Logging System**: Detailed debug logging for monitoring and troubleshooting
 
-This Django-powered blog serves as a platform for discussing the latest trends, challenges, and innovations in AI, ML, and cybersecurity. It also showcases some of my DIY projects, blending technical depth with hands-on creativity.
+## 🛠️ Tech Stack
 
-## Topics Covered
+### Backend Framework
+- Django 4.x
+- Python 3.11
+- WSGI Application Server
 
-### Artificial Intelligence & Machine Learning
+### Database
+- PostgreSQL with psycopg2-binary driver
+- Environment-based configuration
 
-Explore posts on AI and ML, focusing on algorithms, data processing, model training, and real-world applications.
+### Cloud Services (Azure)
+- Azure Web Apps for hosting
+- Azure Blob Storage for static/media files
+- Azure Managed Identity authentication
+- Azure PostgreSQL database
 
-### Cybersecurity
+## 💾 Storage Configuration
+- Whitenoise
+- PostgresSQL (Azure flexible)
 
-Learn about digital defense, threat intelligence, and incident response in the evolving landscape of cybersecurity.
+### Monitoring and Logging
 
-### Blockchain
+Debug logging configured for production monitoring:
+- File handler
+- Console handler
+- App-level logging - Default DEBUG
 
-Discuss the applications, challenges, and potential of blockchain technology in various industries.
+### Security Configuration
 
-### Cybersecurity Threat Intelligence
+- **CSRF Protection**: Configured for production domains
+- **Secure Middleware Stack**:
+  - Security Middleware
+  - WhiteNoise for static files
+  - Session Management
+  - CSRF Protection
+  - Authentication
+  - XFrame Options
 
-Discover how to gather, analyze, and act on threat data to protect digital assets proactively.
+### Production Deployment
 
-### DIY Projects
+The application uses GitHub Actions for CI/CD to Azure Web Apps. The deployment process includes:
+- Automated testing
+- Static file collection
+- Database migrations
+- Zero-downtime deployment
+- Azure Blob Storage configuration
+- Secure environment variable management
 
-Get inspired by my DIY projects, complete with step-by-step guides and creative ideas.
+For more details, see the deployment workflow in `.github/workflows/main_deveric-blog.yml`.
 
-## Tech Stack
+## 🔗 Connect
 
-This blog is built using **Django**, a high-level Python web framework that encourages rapid development and clean, pragmatic design. Using the in-built
-admin functionality to update and create posts. (Crudly functionality).
+- **Website**: [developer.ericgitangu.com](https://developer.ericgitangu.com)
+- **LinkedIn**: [Eric Gitangu](https://linkedin.com/in/ericgitangu)
+- **Azure Blog**: [deveric-blog.azurewebsites.net](https://deveric-blog.azurewebsites.net)
 
-## Get in Touch
+## 📄 License
 
-Connect? If you share similar interests or have questions, feel free to reach out! Let’s connect, collaborate, and innovate together. [Linkedin](https://linkedin.com/in/ericgitangu)
+This project is licensed under the MIT License.

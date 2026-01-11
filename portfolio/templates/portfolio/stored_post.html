@@ -35,8 +35,8 @@
                     {{ post.title }}
                 </h3>
                 {% if post.excerpt %}
-                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
-                    {{ post.excerpt|markdown|striptags|truncatewords:20 }}
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2 tracking-normal">
+                    {{ post.excerpt|plaintext|truncatewords:20 }}
                 </p>
                 {% endif %}
             </a>

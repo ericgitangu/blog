@@ -1,23 +1,38 @@
 from pathlib import Path
 import os
-from azure.identity import DefaultAzureCredential
-from storages.backends.azure_storage import AzureStorage
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Detect Fly.io environment
+FLY_APP_NAME = os.getenv('FLY_APP_NAME')
+IS_FLY = FLY_APP_NAME is not None
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = False
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.fly.dev',
+    '.internal',
+    'blog.ericgitangu.com',
+    'deveric-blog.azurewebsites.net',
+    'developer.ericgitangu.com',
+]
+
+# Allow Fly.io internal health check IPs
+if IS_FLY:
+    ALLOWED_HOSTS.append('*')
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://*.fly.dev',
+    'https://blog.ericgitangu.com',
     'https://deveric-blog.azurewebsites.net',
-    'https://developer.ericgitangu.com'
+    'https://developer.ericgitangu.com',
 ]
 
 INSTALLED_APPS = [
-    'storages',
     'portfolio',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -58,16 +73,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DBNAME'),
-        'USER': os.getenv('DBUSER'),
-        'PASSWORD': os.getenv('DBPASS'),
-        'HOST': os.getenv('DBHOST'),
-        'PORT': os.getenv('DBPORT'),
+# Database configuration
+if IS_FLY:
+    # Fly.io provides DATABASE_URL
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
     }
-}
+else:
+    # Local development or Azure config
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('DBNAME'),
+            'USER': os.getenv('DBUSER'),
+            'PASSWORD': os.getenv('DBPASS'),
+            'HOST': os.getenv('DBHOST'),
+            'PORT': os.getenv('DBPORT'),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -81,63 +109,60 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# Static files (WhiteNoise)
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'portfolio/static']
 
-MEDIA_ROOT = BASE_DIR / 'uploads'
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
-# Azure Blob Storage Configuration for Production
-if not DEBUG:
-    AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
-    AZURE_STATIC_CONTAINER = os.getenv('AZURE_STATIC_CONTAINER')
-    AZURE_MEDIA_CONTAINER = os.getenv('AZURE_MEDIA_CONTAINER')
-
-    # Use DefaultAzureCredential for Managed Identity or Service Principal Authentication
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.azure_storage.AzureStorage",
-            "OPTIONS": {
-                "token_credential": DefaultAzureCredential(),
-                "account_name": AZURE_ACCOUNT_NAME,
-                "azure_container": AZURE_MEDIA_CONTAINER,
-            },
-        },
-        "staticfiles": {
-            "BACKEND": "storages.backends.azure_storage.AzureStorage",
-            "OPTIONS": {
-                "token_credential": DefaultAzureCredential(),
-                "account_name": AZURE_ACCOUNT_NAME,
-                "azure_container": AZURE_STATIC_CONTAINER,
-            },
-        },
-    }
-
-    STATIC_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_STATIC_CONTAINER}/"
-    MEDIA_URL = f"https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_MEDIA_CONTAINER}/"
-
+# Media files
+if IS_FLY:
+    MEDIA_ROOT = '/data/media'  # Fly Volume mount point
 else:
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    MEDIA_ROOT = BASE_DIR / 'uploads'
 
-    MEDIA_URL = '/media/'
-    STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Security settings for production
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # SSL redirect handled by Fly.io proxy (force_https in fly.toml)
+    # Disable Django's redirect to allow internal health checks
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+
+# Logging for Fly.io (stdout instead of file)
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': '/tmp/debug.log',
+        'console': {
+            'class': 'logging.StreamHandler',
         },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         },
     },
 }

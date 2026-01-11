@@ -1,15 +1,24 @@
 {% load static %}
-{% load markdown_extras %}
 
-<li>
-    <article class="post">
-        <a href="{% url 'post_detail' post.slug %}">
+<li class="w-full">
+    <article>
+        <a href="{% url 'post_detail' post.slug %}"
+           class="block bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl
+                  transition-all duration-300 overflow-hidden h-full
+                  hover:scale-[1.02] active:scale-[0.98]">
             {% if post.image %}
-            <img src="{{ post.image.url }}" alt="post image">
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                 class="w-full h-32 sm:h-40 object-cover">
             {% endif %}
-            <div class="post__content">
-                <h3>{{ post.title }}</h3>
-                <div class="excerpt">{{ post.excerpt|markdown }}</div>
+            <div class="p-3 sm:p-4">
+                <h3 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100
+                           line-clamp-2 break-words hyphens-auto leading-tight">
+                    {{ post.title|truncatewords:8 }}
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2
+                          line-clamp-3 break-words leading-relaxed">
+                    {{ post.excerpt|truncatewords:20|striptags }}
+                </p>
             </div>
         </a>
     </article>

@@ -3,101 +3,152 @@
 {% load static %}
 {% load markdown_extras %}
 
-{% block title %}{{post.title}}{% endblock %}
-
-{% block css_files%}
-    <link rel='stylesheet' href="{% static 'post_details.css' %}">
-    <link rel='stylesheet' href="{% static 'base.css' %}">
-{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <div id="success" style="display:none">
-        <h2> Your feedback is much appreciated! </p>
-        <a href ="{% url 'posts' %}" class="center">Back to all posts</a>>
+    <!-- Alert/Success Messages -->
+    <div id="success" class="hidden fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">
+        <p class="font-semibold">Your feedback is much appreciated!</p>
+        <a href="{% url 'posts' %}" class="text-green-100 hover:text-white underline">Back to all posts</a>
     </div>
+
     {% if comment.errors %}
-        <div id="alert">
-            <h2> Oops! Your comment was not submitted, fix these errors: {{ comment.errors }} first and try again. </p>
-            <a href="#comment-form">Fix the error(s)</a>
-        </div>
+    <div id="alert" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">
+        <p class="font-semibold">Oops! Your comment was not submitted, fix these errors: {{ comment.errors }} first and try again.</p>
+        <a href="#comment-form" class="text-red-100 hover:text-white underline">Fix the error(s)</a>
+    </div>
     {% endif %}
+
     {% if comment.is_valid %}
-        <div id="success">
-            <h2> Your feedback is much appreciated! </p>
-            <a href ="{% url 'posts' %}" class="center">Back to all posts</a>
-        </div>
+    <div id="success-valid" class="fixed top-20 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50">
+        <p class="font-semibold">Your feedback is much appreciated!</p>
+        <a href="{% url 'posts' %}" class="text-green-100 hover:text-white underline">Back to all posts</a>
+    </div>
     {% endif %}
-    <section id='summary'>
-        <h2>{{post.title}}</h2>
-        <div>
-            {% for tag in post_tags%}
-                <span class='tag'>{{ tag.caption }}</span>
-            {%endfor%}
+
+    <!-- Post Header -->
+    <section class="py-8 px-4 max-w-3xl mx-auto">
+        <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4 break-words">
+            {{ post.title }}
+        </h1>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-4">
+            {% for tag in post_tags %}
+            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-xs sm:text-sm rounded-full">
+                {{ tag.caption }}
+            </span>
+            {% endfor %}
         </div>
-        <div id="read-later">
-            <form action="{% url 'saved-posts' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="post_id" value="{{post.id}}">
-                <button type="submit">
-                    {% if not saved_for_later %}
-                        Read Later
-                    {% else %}
-                        Remove from "Read Later"
-                    {% endif %}
-                </button>
-            </form>
-        </div>
-        <article>
+
+        <!-- Read Later Button -->
+        <form action="{% url 'saved-posts' %}" method="POST" class="mb-6">
+            {% csrf_token %}
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            <button type="submit"
+                    class="px-4 py-2 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600
+                           text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                {% if not saved_for_later %}
+                    Save for Later
+                {% else %}
+                    Remove from Saved
+                {% endif %}
+            </button>
+        </form>
+
+        <!-- Post Image & Meta -->
+        <article class="mb-8">
             {% if post.image %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                 class="w-full max-h-96 object-cover rounded-xl shadow-lg mb-6">
             {% endif %}
-            <address>
-                <p>Written by <a href="mailto:{{post.author.email}}">{{post.author}}</a></p>
-                <p>Published on {{post.date|date:'D, d M Y H'}}</p>
+            <address class="not-italic text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                <p>Written by <a href="mailto:{{ post.author.email }}" class="text-purple-600 dark:text-purple-400 hover:underline">{{ post.author }}</a></p>
+                <p>Published on {{ post.date|date:'D, d M Y' }}</p>
             </address>
         </article>
     </section>
-    <main class="post-content">
-        {{post.content|markdown}}
-        <br><br>
-        <a href ="{% url 'posts' %}" class="center">Back to all posts</a>
-    </main>
-    <main>
-        <h3>Drop a comment?</h3>
-        <div id="comment-form">
-            <form id="comments-form" action="{% url 'post_detail' post.slug %}" method="POST">
-                {% csrf_token %}
-                {% for comment in comment_form %}
-                    <div class="form-control {%if comment.errors %} invalid {% endif %}">
-                        <p> {{ comment.label_tag }} </p>
-                        <p> {{ comment }} </p>
-                        <p> {{ comment.errors }} </p>
-                    </div>
-                {% endfor %}
-                <button type="submit">Submit</button>
-            </form>
+
+    <!-- Post Content -->
+    <main class="px-4 max-w-3xl mx-auto mb-12">
+        <div class="prose prose-lg dark:prose-invert max-w-none
+                    prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+                    prose-p:text-gray-700 dark:prose-p:text-gray-300
+                    prose-a:text-purple-600 dark:prose-a:text-purple-400
+                    prose-code:bg-gray-100 dark:prose-code:bg-gray-800
+                    prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950
+                    text-gray-700 dark:text-gray-300 leading-relaxed">
+            {{ post.content|markdown }}
+        </div>
+        <div class="mt-8">
+            <a href="{% url 'posts' %}"
+               class="inline-flex items-center text-purple-600 dark:text-purple-400 hover:underline font-medium">
+                &larr; Back to all posts
+            </a>
         </div>
     </main>
-    <main>
-        <section id="comments">
-            <h1>Comments</h1>
-            <ul>
-                {% for comment in comments %}
-                    <li>
-                        <h3>{{comment.name}}</h3>
-                        <p>{{comment.comment}}</p>
-                        <p>{{comment.date|date:'D, d M Y'}} {{comment.date|date:'H;i A'}}</p>
-                    </li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
+
+    <!-- Comment Form -->
+    <section class="px-4 max-w-3xl mx-auto mb-12">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Drop a comment?</h3>
+        <form id="comment-form" action="{% url 'post_detail' post.slug %}" method="POST"
+              class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6 space-y-4">
+            {% csrf_token %}
+            {% for field in comment_form %}
+            <div class="{% if field.errors %}border-l-4 border-red-500 pl-4{% endif %}">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    {{ field.label }}
+                </label>
+                <div class="[&>input]:w-full [&>input]:px-3 [&>input]:py-2 [&>input]:border [&>input]:border-gray-300 [&>input]:dark:border-gray-600 [&>input]:rounded-lg [&>input]:bg-white [&>input]:dark:bg-gray-700 [&>input]:text-gray-900 [&>input]:dark:text-gray-100 [&>input]:focus:ring-2 [&>input]:focus:ring-purple-500 [&>input]:focus:border-transparent
+                            [&>textarea]:w-full [&>textarea]:px-3 [&>textarea]:py-2 [&>textarea]:border [&>textarea]:border-gray-300 [&>textarea]:dark:border-gray-600 [&>textarea]:rounded-lg [&>textarea]:bg-white [&>textarea]:dark:bg-gray-700 [&>textarea]:text-gray-900 [&>textarea]:dark:text-gray-100 [&>textarea]:focus:ring-2 [&>textarea]:focus:ring-purple-500 [&>textarea]:focus:border-transparent [&>textarea]:min-h-[100px]">
+                    {{ field }}
+                </div>
+                {% if field.errors %}
+                <p class="mt-1 text-sm text-red-500">{{ field.errors }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit"
+                    class="w-full sm:w-auto px-6 py-2 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600
+                           text-white font-medium rounded-lg transition-colors duration-200">
+                Submit
+            </button>
+        </form>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="px-4 max-w-3xl mx-auto pb-12">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">Comments</h2>
+        {% if comments %}
+        <ul class="space-y-4">
+            {% for comment in comments %}
+            <li class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 md:p-6">
+                <h4 class="font-semibold text-gray-900 dark:text-gray-100">{{ comment.name }}</h4>
+                <p class="text-gray-700 dark:text-gray-300 mt-2">{{ comment.comment }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-500 mt-3">
+                    {{ comment.date|date:'D, d M Y' }} at {{ comment.date|date:'H:i A' }}
+                </p>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="text-gray-600 dark:text-gray-400">No comments yet. Be the first to comment!</p>
+        {% endif %}
+    </section>
+
     <script>
+        // Auto-hide alerts
         setTimeout(function(){
-            document.getElementById('alert').style.display = 'none';
+            var alert = document.getElementById('alert');
+            if (alert) alert.classList.add('hidden');
         }, 3000);
         setTimeout(function(){
-            document.getElementById('success').style.display = 'none';
+            var success = document.getElementById('success');
+            if (success) success.classList.add('hidden');
+        }, 3000);
+        setTimeout(function(){
+            var successValid = document.getElementById('success-valid');
+            if (successValid) successValid.classList.add('hidden');
         }, 3000);
     </script>
-{% endblock%}
+{% endblock %}

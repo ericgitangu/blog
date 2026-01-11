@@ -156,22 +156,17 @@ body {
 
 .post h3 {
   margin: 0.25rem 0;
+  word-spacing: normal;
+  letter-spacing: normal;
+  white-space: normal;
 }
 
-.post .excerpt,
-.post .excerpt p {
+.post .excerpt {
   font-size: 0.85rem;
   color: #666;
   margin: 0.5rem 0 0 0;
   line-height: 1.4;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  hyphens: none;
-  -webkit-hyphens: none;
-  max-height: 4.5rem;
-  overflow: hidden;
-}
-
-.post .excerpt a {
-  color: #390281;
+  word-spacing: normal;
+  letter-spacing: normal;
+  white-space: normal;
 }

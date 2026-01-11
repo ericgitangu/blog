@@ -1,20 +1,47 @@
-{%extends "base.html" %}
+{% extends "base.html" %}
 
-{% load static%}
+{% load static %}
 
-{% block title%}Stored Posts{% endblock %}
+{% block title %}Saved Posts{% endblock %}
 
-{%block css_files %}<link rel="stylesheet" href="{% static "stored-posts.css" %}">{% endblock %}
+{% block content %}
+<section class="py-8 px-4 max-w-4xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
+        Saved Posts
+    </h2>
 
-{% block content%}
-    <section id="stored-posts">
-        {%if not has_posts %}
-            <p>There are no posts to saved</p>            
-        {% endif %}
-        <ul>
-            {% for post in posts %} 
-                 <li><a href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></li>
-             {% endfor %}
-         </ul>
-    </section>
+    {% if not has_posts %}
+    <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+        </svg>
+        <p class="text-gray-600 dark:text-gray-400 text-lg">No saved posts yet</p>
+        <p class="text-gray-500 dark:text-gray-500 text-sm mt-2">Save posts to read later by clicking "Save for Later" on any post</p>
+        <a href="{% url 'posts' %}"
+           class="inline-block mt-6 px-6 py-2 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600
+                  text-white font-medium rounded-lg transition-colors duration-200">
+            Browse Posts
+        </a>
+    </div>
+    {% else %}
+    <ul class="space-y-3 list-none p-0 m-0">
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'post_detail' post.slug %}"
+               class="block bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg
+                      p-4 transition-all duration-200 hover:scale-[1.01]">
+                <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 break-words">
+                    {{ post.title }}
+                </h3>
+                {% if post.excerpt %}
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 line-clamp-2">
+                    {{ post.excerpt|truncatewords:20|striptags }}
+                </p>
+                {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</section>
 {% endblock %}

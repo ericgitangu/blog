@@ -118,7 +118,7 @@ class Command(BaseCommand):
         draw = ImageDraw.Draw(image)
 
         # Try to load a font, fall back to default
-        font_size = 42
+        font_size = 56
         try:
             font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
         except (IOError, OSError):
@@ -132,7 +132,7 @@ class Command(BaseCommand):
         lines = self.wrap_text(title, font, width - 80, draw)
 
         # Calculate vertical position to center text
-        line_height = font_size + 10
+        line_height = font_size + 14
         total_height = len(lines) * line_height
         y_start = (height - total_height) // 2
 
@@ -153,10 +153,10 @@ class Command(BaseCommand):
         if tags:
             tag_text = ' | '.join(tags)
             try:
-                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
+                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
             except (IOError, OSError):
                 small_font = font
-            draw.text((20, height - 30), tag_text.upper(), font=small_font, fill=(255, 255, 255, 180))
+            draw.text((20, height - 35), tag_text.upper(), font=small_font, fill=(255, 255, 255, 180))
 
         return image
 

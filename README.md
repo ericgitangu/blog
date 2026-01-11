@@ -10,7 +10,8 @@
 
 <div align="center">
     <a href="https://developer.ericgitangu.com">
-        <img src="https://developer.ericgitangu.com/_next/image?url=%2Ffavicon.png&w=96&q=75" style="border-radius: 50%" alt="deveric.io logo"/>
+        <img src="https://developer.ericgitangu.com/_next/image?url=%2Ffavicon.png&w=128&q=75" width="128" height="128" style="border-radius: 50%; overflow: hidden; display: inline-block;" alt="Eric Gitangu"/>
+        <br/>
         <h2>Eric Gitangu</h2>
     </a>
 

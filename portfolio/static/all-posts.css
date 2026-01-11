@@ -24,8 +24,10 @@ ul {
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  display: content;
- 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
 }
   
 .post img {

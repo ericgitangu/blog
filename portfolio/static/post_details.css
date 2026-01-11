@@ -135,7 +135,65 @@ main code {
   background-color: #f4f4f4;
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+}
+
+main pre {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+main pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+main blockquote {
+  border-left: 4px solid #390281;
+  margin: 1.5rem 0;
+  padding: 0.5rem 1rem;
+  background-color: #f9f9f9;
+  font-style: italic;
+}
+
+main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+main th, main td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+main th {
+  background-color: #390281;
+  color: white;
+}
+
+main tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+main hr {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 2rem 0;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
 }
 
 .tag {

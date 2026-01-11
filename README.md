@@ -1,5 +1,6 @@
 # Eric Gitangu's Tech Blog
 
+![CI/CD](https://github.com/ericgitangu/blog/actions/workflows/main_deveric-blog.yml/badge.svg)
 ![Django](https://img.shields.io/badge/Django-5.1-green?style=flat-square&logo=django)
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square&logo=python)
 ![Fly.io](https://img.shields.io/badge/Deployed-Fly.io-purple?style=flat-square&logo=fly-dot-io)

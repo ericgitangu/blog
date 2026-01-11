@@ -94,10 +94,13 @@ class Command(BaseCommand):
             slug = f'{slug_base}-{counter}'
             counter += 1
 
-        # Create excerpt from content
-        excerpt = content[:200].replace('\n', ' ').strip()
-        if len(content) > 200:
-            excerpt += '...'
+        # Create excerpt from content (max 197 chars to leave room for ...)
+        clean_content = content.replace('\n', ' ').replace('  ', ' ').strip()
+        clean_content = clean_content.replace('#', '').replace('*', '')  # Remove markdown
+        if len(clean_content) > 197:
+            excerpt = clean_content[:197] + '...'
+        else:
+            excerpt = clean_content
 
         post = Post.objects.create(
             title=title,

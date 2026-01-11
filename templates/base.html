@@ -5,14 +5,30 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-        <meta name="description" content="Eric Gitangu, Developer, Engineer and Critical thinker">
+        <meta name="description" content="Eric Gitangu's Tech Blog - Insights on AI, Systems Architecture, Software Engineering, and Cybersecurity">
         <meta name="author" content="Eric Gitangu">
-        <meta property="og:title" content="Eric Gitangu [Deveric] - Blog"/>
+        <meta name="keywords" content="software engineering, AI, machine learning, systems architecture, cybersecurity, Django, Python, React">
+
+        <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website"/>
-        <meta property="og:image" content="{% static 'avatar.jpg' %}"/>
-        <meta property="og:url" content="https://deveric-blog.azurewebsites.com/"/>
-        <meta property="og:description" content="Sharing insights on AI, ML, Cybersecurity, Blockchain, and more."/>
-        <link rel="icon" href="{% static 'favicon.ico' %}"/>
+        <meta property="og:url" content="https://blog.ericgitangu.com/"/>
+        <meta property="og:title" content="{% block og_title %}Eric Gitangu's Tech Blog{% endblock %}"/>
+        <meta property="og:description" content="{% block og_description %}Insights on AI, Systems Architecture, Software Engineering, and Cybersecurity{% endblock %}"/>
+        <meta property="og:image" content="https://blog.ericgitangu.com{% static 'og-image.png' %}"/>
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:url" content="https://blog.ericgitangu.com/"/>
+        <meta name="twitter:title" content="{% block twitter_title %}Eric Gitangu's Tech Blog{% endblock %}"/>
+        <meta name="twitter:description" content="{% block twitter_description %}Insights on AI, Systems Architecture, Software Engineering, and Cybersecurity{% endblock %}"/>
+        <meta name="twitter:image" content="https://blog.ericgitangu.com{% static 'twitter-card.png' %}"/>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}"/>
+        <link rel="apple-touch-icon" href="{% static 'favicon.png' %}"/>
         <title>{% block title %}Eric Gitangu - Deveric's Blog{% endblock %}</title>
         {% block css_files %}{% endblock %}
 

@@ -136,27 +136,38 @@ class Command(BaseCommand):
         total_height = len(lines) * line_height
         y_start = (height - total_height) // 2
 
-        # Draw text with shadow for better readability
+        # Draw text with strong outline for better readability
         for i, line in enumerate(lines):
             bbox = draw.textbbox((0, 0), line, font=font)
             text_width = bbox[2] - bbox[0]
             x = (width - text_width) // 2
             y = y_start + i * line_height
 
-            # Shadow
-            draw.text((x + 2, y + 2), line, font=font, fill=(0, 0, 0, 128))
-            # Main text
+            # Draw black outline (multiple passes for thickness)
+            outline_color = (0, 0, 0)
+            for offset_x in range(-3, 4):
+                for offset_y in range(-3, 4):
+                    if offset_x != 0 or offset_y != 0:
+                        draw.text((x + offset_x, y + offset_y), line, font=font, fill=outline_color)
+
+            # Main white text
             draw.text((x, y), line, font=font, fill=(255, 255, 255))
 
-        # Add subtle tag indicator at bottom
+        # Add tag indicator at bottom with outline
         tags = [t.caption for t in post.tags.all()[:3]]
         if tags:
             tag_text = ' | '.join(tags)
             try:
-                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 20)
+                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
             except (IOError, OSError):
                 small_font = font
-            draw.text((20, height - 35), tag_text.upper(), font=small_font, fill=(255, 255, 255, 180))
+            tag_x, tag_y = 20, height - 40
+            # Outline for tags
+            for ox in range(-2, 3):
+                for oy in range(-2, 3):
+                    if ox != 0 or oy != 0:
+                        draw.text((tag_x + ox, tag_y + oy), tag_text.upper(), font=small_font, fill=(0, 0, 0))
+            draw.text((tag_x, tag_y), tag_text.upper(), font=small_font, fill=(255, 255, 255))
 
         return image
 

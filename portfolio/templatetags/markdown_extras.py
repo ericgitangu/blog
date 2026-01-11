@@ -40,7 +40,15 @@ def plaintext(text):
     # Strip HTML tags
     plain = strip_tags(html)
 
+    # Decode common HTML entities
+    import html as html_module
+    plain = html_module.unescape(plain)
+
     # Normalize whitespace: collapse multiple spaces/newlines into single space
+    plain = re.sub(r'\s+', ' ', plain).strip()
+
+    # Remove any remaining special characters that might cause spacing issues
+    plain = re.sub(r'[\u00a0\u2003\u2002\u2009]', ' ', plain)  # various space characters
     plain = re.sub(r'\s+', ' ', plain).strip()
 
     return plain

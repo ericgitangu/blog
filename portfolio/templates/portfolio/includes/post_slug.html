@@ -1,4 +1,5 @@
 {% load static %}
+{% load markdown_extras %}
 
 <li class="w-full">
     <article>
@@ -17,7 +18,7 @@
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2
                           line-clamp-3 break-words leading-relaxed">
-                    {{ post.excerpt|truncatewords:20|striptags }}
+                    {{ post.excerpt|markdown|striptags|truncatewords:20 }}
                 </p>
             </div>
         </a>

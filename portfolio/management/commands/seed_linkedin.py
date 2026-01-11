@@ -95,12 +95,12 @@ class Command(BaseCommand):
             counter += 1
 
         # Create excerpt from content (max 197 chars to leave room for ...)
-        clean_content = content.replace('\n', ' ').replace('  ', ' ').strip()
-        clean_content = clean_content.replace('#', '').replace('*', '')  # Remove markdown
-        if len(clean_content) > 197:
-            excerpt = clean_content[:197] + '...'
+        # Keep markdown - it will be rendered by the template filter
+        excerpt_content = content.replace('\n', ' ').replace('  ', ' ').strip()
+        if len(excerpt_content) > 197:
+            excerpt = excerpt_content[:197] + '...'
         else:
-            excerpt = clean_content
+            excerpt = excerpt_content
 
         post = Post.objects.create(
             title=title,

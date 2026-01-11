@@ -157,3 +157,15 @@ body {
 .post h3 {
   margin: 0.25rem 0;
 }
+
+.post .excerpt,
+.post .excerpt p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0 0 0;
+  line-height: 1.4;
+}
+
+.post .excerpt a {
+  color: #390281;
+}

@@ -9,7 +9,7 @@ Usage:
 """
 import csv
 import os
-from datetime import datetime
+from datetime import datetime, timezone as dt_timezone
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
 from django.utils import timezone
@@ -77,7 +77,7 @@ class Command(BaseCommand):
         for fmt in formats:
             try:
                 dt = datetime.strptime(date_str, fmt)
-                return timezone.make_aware(dt, timezone.utc)
+                return timezone.make_aware(dt, dt_timezone.utc)
             except ValueError:
                 continue
 

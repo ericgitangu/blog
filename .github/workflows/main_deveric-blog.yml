@@ -1,8 +1,5 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
-
-name: Build and deploy Python app to Azure Web App - deveric-blog
+# Deploy Django Blog to Fly.io
+name: Deploy to Fly.io
 
 on:
   push:
@@ -11,68 +8,48 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python version
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-      
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
-      - name: Upload artifact for deployment jobs
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-app
-          path: |
-            release.zip
-            !venv/
+      - name: Run Django checks
+        run: |
+          python manage.py check --deploy
+        env:
+          SECRET_KEY: test-secret-key-for-ci
+          DEBUG: 'False'
+          DBNAME: test
+          DBUSER: test
+          DBPASS: test
+          DBHOST: localhost
+          DBPORT: '5432'
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: test
+    if: github.ref == 'refs/heads/main'
     environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
+      name: production
+      url: https://blog.ericgitangu.com
 
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: python-app
+      - uses: actions/checkout@v4
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+      - name: Setup Fly.io CLI
+        uses: superfly/flyctl-actions/setup-flyctl@master
 
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_AD3F109F5B124484B12CF1939671B753 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_72BF019E38204E80B28CBF4BAC8F5E0A }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EF3A296F28EA4AEDA35995B93A4A4E96 }}
-
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'deveric-blog'
-          slot-name: 'Production'
-          
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

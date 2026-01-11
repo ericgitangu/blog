@@ -2,11 +2,13 @@
 
 <li>
     <article class="post">
-        <a href= {%url 'post_detail' post.slug%}>
+        <a href="{% url 'post_detail' post.slug %}">
+            {% if post.image %}
             <img src="{{ post.image.url }}" alt="post image">
+            {% endif %}
             <div class="post__content">
-                <h3>{{ post.title}}</h3>
-                <p>{{ post.excerpt}}</p>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.excerpt }}</p>
             </div>
         </a>
     </article>

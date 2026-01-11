@@ -47,7 +47,9 @@
             </form>
         </div>
         <article>
-            <img src="{{ post.image.url }}" alt={{ post.title}}/>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"/>
+            {% endif %}
             <address>
                 <p>Written by <a href="mailto:{{post.author.email}}">{{post.author}}</a></p>
                 <p>Published on {{post.date|date:'D, d M Y H'}}</p>

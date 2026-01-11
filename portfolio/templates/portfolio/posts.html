@@ -2,17 +2,124 @@
 
 {% load static %}
 
-{% block title %}{{ title }}{% endblock %}
+{% block title %}Posts{% endblock %}
 
 {% block content %}
 <section class="py-8 px-4 max-w-6xl mx-auto">
-    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 dark:text-gray-100 mb-8">
-        All Posts
-    </h2>
+    <!-- Header with Stats -->
+    <div class="text-center mb-6">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            All Posts
+        </h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">
+            {% if search_query or active_tag %}
+                Showing {{ filtered_count }} of {{ total_posts }} posts
+                {% if active_tag %}<span class="text-purple-600 dark:text-purple-400">in "{{ active_tag }}"</span>{% endif %}
+                {% if search_query %}<span class="text-purple-600 dark:text-purple-400">matching "{{ search_query }}"</span>{% endif %}
+            {% else %}
+                {{ total_posts }} posts across {{ tags|length }} categories
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="mb-6">
+        <form method="get" action="{% url 'posts' %}" class="flex gap-2 max-w-md mx-auto">
+            <div class="relative flex-1">
+                <input type="text" name="q" value="{{ search_query }}" placeholder="Search posts..."
+                       class="w-full px-4 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg
+                              bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
+                              focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors">
+                <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+            </div>
+            {% if active_tag %}<input type="hidden" name="tag" value="{{ active_tag }}">{% endif %}
+            <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">
+                Search
+            </button>
+            {% if search_query or active_tag %}
+            <a href="{% url 'posts' %}" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors">
+                Clear
+            </a>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Tag Filters -->
+    {% if tags %}
+    <div class="mb-8">
+        <div class="flex flex-wrap justify-center gap-2">
+            <a href="{% url 'posts' %}{% if search_query %}?q={{ search_query }}{% endif %}"
+               class="px-3 py-1 text-sm rounded-full transition-colors
+                      {% if not active_tag %}bg-purple-600 text-white{% else %}bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900{% endif %}">
+                All
+            </a>
+            {% for tag in tags %}
+            <a href="?tag={{ tag.caption }}{% if search_query %}&q={{ search_query }}{% endif %}"
+               class="px-3 py-1 text-sm rounded-full transition-colors
+                      {% if active_tag == tag.caption %}bg-purple-600 text-white{% else %}bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900{% endif %}">
+                {{ tag.caption }} <span class="opacity-60">({{ tag.post_count }})</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Posts Grid -->
+    {% if posts %}
     <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 list-none p-0 m-0">
         {% for post in posts %}
             {% include 'portfolio/includes/post_slug.html' %}
         {% endfor %}
     </ul>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav class="mt-8 flex justify-center items-center gap-2">
+        {% if page_obj.has_previous %}
+        <a href="?page=1{% if search_query %}&q={{ search_query }}{% endif %}{% if active_tag %}&tag={{ active_tag }}{% endif %}"
+           class="px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm">
+            First
+        </a>
+        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_tag %}&tag={{ active_tag }}{% endif %}"
+           class="px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm">
+            &larr; Prev
+        </a>
+        {% endif %}
+
+        <span class="px-4 py-2 text-sm text-gray-600 dark:text-gray-400">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_tag %}&tag={{ active_tag }}{% endif %}"
+           class="px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm">
+            Next &rarr;
+        </a>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&q={{ search_query }}{% endif %}{% if active_tag %}&tag={{ active_tag }}{% endif %}"
+           class="px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded-lg transition-colors text-sm">
+            Last
+        </a>
+        {% endif %}
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <!-- No Results -->
+    <div class="text-center py-12">
+        <svg class="w-16 h-16 mx-auto text-gray-400 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p class="text-gray-600 dark:text-gray-400 text-lg mb-2">No posts found</p>
+        <p class="text-gray-500 dark:text-gray-500 text-sm mb-4">
+            {% if search_query %}Try a different search term{% endif %}
+            {% if active_tag %}or select a different category{% endif %}
+        </p>
+        <a href="{% url 'posts' %}" class="inline-block px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors">
+            View All Posts
+        </a>
+    </div>
+    {% endif %}
 </section>
 {% endblock %}

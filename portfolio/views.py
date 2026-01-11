@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from datetime import date
-from .models import Post
+from .models import Post, Tag
 from django.views.generic import ListView, View
 from .forms import CommentForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db.models import Q, Count
 
 # all_posts = [
 #     {
@@ -75,6 +76,46 @@ class posts(ListView):
     model = Post
     ordering = ['-date']
     context_object_name = 'posts'
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        # Search functionality
+        search_query = self.request.GET.get('q', '').strip()
+        if search_query:
+            queryset = queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(content__icontains=search_query) |
+                Q(excerpt__icontains=search_query)
+            )
+
+        # Tag filtering
+        tag_slug = self.request.GET.get('tag', '').strip()
+        if tag_slug:
+            queryset = queryset.filter(tags__caption__iexact=tag_slug)
+
+        return queryset.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Get all tags with post counts
+        context['tags'] = Tag.objects.annotate(
+            post_count=Count('posts')
+        ).filter(post_count__gt=0).order_by('-post_count')
+
+        # Total post count
+        context['total_posts'] = Post.objects.count()
+
+        # Current filters
+        context['search_query'] = self.request.GET.get('q', '')
+        context['active_tag'] = self.request.GET.get('tag', '')
+
+        # Filtered count
+        context['filtered_count'] = self.get_queryset().count()
+
+        return context
 
 # def post_detail(request, slug):
 #     identified_post = get_object_or_404(Post, slug=slug)

@@ -55,13 +55,26 @@ ul {
 }
 
 .post__content {
-  padding: 1rem;
+  padding: 0.75rem;
   text-align: center;
   width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+}
+
+.post__content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.post__content::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 2px;
 }
 
 .post__content h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1a1a1a;
   margin: 0 0 0.5rem 0;
@@ -69,13 +82,8 @@ ul {
 }
 
 .post__content p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #4a4a4a;
   margin: 0;
   line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 }

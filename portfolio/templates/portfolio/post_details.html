@@ -57,7 +57,7 @@
         </article>
     </section>
     <main>
-        {{post.content|safe}}
+        {{post.content|urlize|linebreaks}}
         <br><br>
         <a href ="{% url 'posts' %}" class="center">Back to all posts</a>
     </main>

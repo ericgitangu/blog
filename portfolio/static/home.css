@@ -160,10 +160,16 @@ body {
 
 .post .excerpt,
 .post .excerpt p {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #666;
   margin: 0.5rem 0 0 0;
   line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: none;
+  -webkit-hyphens: none;
+  max-height: 4.5rem;
+  overflow: hidden;
 }
 
 .post .excerpt a {

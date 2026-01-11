@@ -1,15 +1,17 @@
 """
-Generate images for posts that don't have one.
+Generate AI images for posts using DALL-E 3.
 
-Creates gradient backgrounds with title text overlay.
+Creates unique, high-quality images based on post titles and tags.
 Images are saved to MEDIA_ROOT/posts/
 
 Usage:
     python manage.py generate_images
     python manage.py generate_images --overwrite  # Regenerate all
+
+Requires OPENAI_API_KEY environment variable.
 """
-import hashlib
 import os
+import requests
 from io import BytesIO
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
@@ -17,36 +19,41 @@ from django.conf import settings
 from portfolio.models import Post
 
 try:
-    from PIL import Image, ImageDraw, ImageFont
+    from openai import OpenAI
+    HAS_OPENAI = True
+except ImportError:
+    HAS_OPENAI = False
+
+try:
+    from PIL import Image
     HAS_PILLOW = True
 except ImportError:
     HAS_PILLOW = False
 
 
 class Command(BaseCommand):
-    help = 'Generate images for posts without images'
+    help = 'Generate AI images for posts using DALL-E 3'
 
-    # Color schemes based on tags
-    COLOR_SCHEMES = {
-        'rust': [(183, 65, 14), (255, 107, 53)],
-        'python': [(55, 118, 171), (255, 212, 59)],
-        'java': [(176, 114, 25), (237, 139, 0)],
-        'javascript': [(247, 223, 30), (50, 51, 48)],
-        'react': [(97, 218, 251), (32, 35, 42)],
-        'blockchain': [(247, 147, 26), (20, 21, 26)],
-        'kubernetes': [(50, 108, 229), (255, 255, 255)],
-        'aws': [(255, 153, 0), (35, 47, 62)],
-        'django': [(12, 75, 51), (44, 160, 101)],
-        'go': [(0, 173, 216), (255, 255, 255)],
-        'android': [(61, 220, 132), (255, 255, 255)],
-        'ai': [(138, 43, 226), (255, 105, 180)],
-        'security': [(220, 20, 60), (25, 25, 25)],
-        'career': [(70, 130, 180), (255, 255, 255)],
-        'education': [(34, 139, 34), (255, 255, 255)],
-        'project': [(255, 69, 0), (255, 215, 0)],
-        'certifications': [(75, 0, 130), (238, 130, 238)],
-        'skills': [(0, 128, 128), (255, 255, 255)],
-        'default': [(99, 102, 241), (168, 85, 247)],
+    # Style keywords based on tags
+    STYLE_HINTS = {
+        'rust': 'rust-colored, industrial, metallic gears',
+        'python': 'blue and yellow, snake motif, clean code',
+        'java': 'coffee themed, orange and brown, enterprise',
+        'javascript': 'yellow and black, dynamic, web nodes',
+        'react': 'blue atoms, component blocks, modern UI',
+        'blockchain': 'golden chains, distributed nodes, crypto',
+        'kubernetes': 'blue containers, orchestration, cloud pods',
+        'aws': 'orange cloud, infrastructure, scalable',
+        'django': 'green, web framework, python elegant',
+        'go': 'cyan gopher, concurrent, fast',
+        'android': 'green robot, mobile, apps',
+        'ai': 'neural networks, purple gradients, futuristic',
+        'security': 'red shields, locks, cyber protection',
+        'career': 'professional, blue suit, growth chart',
+        'education': 'books, graduation, academic green',
+        'project': 'blueprints, building blocks, orange',
+        'certifications': 'badges, certificates, achievements',
+        'skills': 'toolbox, expertise icons, teal',
     }
 
     def add_arguments(self, parser):
@@ -55,128 +62,93 @@ class Command(BaseCommand):
             action='store_true',
             help='Regenerate images even for posts that have one'
         )
+        parser.add_argument(
+            '--dry-run',
+            action='store_true',
+            help='Show prompts without generating images'
+        )
 
-    def get_color_scheme(self, post):
-        """Get color scheme based on post tags."""
+    def get_style_hint(self, post):
+        """Get style hints based on post tags."""
         tags = [t.caption.lower() for t in post.tags.all()]
+        hints = []
 
         for tag in tags:
-            for key in self.COLOR_SCHEMES:
+            for key, hint in self.STYLE_HINTS.items():
                 if key in tag:
-                    return self.COLOR_SCHEMES[key]
+                    hints.append(hint)
+                    break
 
-        return self.COLOR_SCHEMES['default']
+        return ', '.join(hints[:2]) if hints else 'modern tech, professional'
 
-    def wrap_text(self, text, font, max_width, draw):
-        """Wrap text to fit within max_width."""
-        words = text.split()
-        lines = []
-        current_line = []
+    def create_prompt(self, post):
+        """Create a DALL-E prompt for the post."""
+        title = post.title[:100]
+        style_hint = self.get_style_hint(post)
 
-        for word in words:
-            current_line.append(word)
-            test_line = ' '.join(current_line)
-            bbox = draw.textbbox((0, 0), test_line, font=font)
-            width = bbox[2] - bbox[0]
+        prompt = f"""Create a modern, professional blog header image for an article titled "{title}".
 
-            if width > max_width:
-                if len(current_line) == 1:
-                    lines.append(current_line[0])
-                    current_line = []
-                else:
-                    current_line.pop()
-                    lines.append(' '.join(current_line))
-                    current_line = [word]
+Style: Abstract, minimalist tech illustration with {style_hint}.
+Requirements:
+- Clean, modern design suitable for a tech blog
+- No text or letters in the image
+- Soft gradients and geometric shapes
+- Professional color palette
+- 16:9 aspect ratio composition
+- Suitable as a blog post thumbnail"""
 
-        if current_line:
-            lines.append(' '.join(current_line))
+        return prompt
 
-        return lines[:3]  # Max 3 lines
+    def generate_with_dalle(self, client, prompt):
+        """Generate image using DALL-E 3."""
+        response = client.images.generate(
+            model="dall-e-3",
+            prompt=prompt,
+            size="1792x1024",  # Closest to 16:9
+            quality="standard",
+            n=1,
+        )
 
-    def create_gradient(self, width, height, color1, color2):
-        """Create a diagonal gradient image."""
-        image = Image.new('RGB', (width, height))
+        image_url = response.data[0].url
 
-        for y in range(height):
-            for x in range(width):
-                # Diagonal gradient
-                ratio = (x + y) / (width + height)
-                r = int(color1[0] * (1 - ratio) + color2[0] * ratio)
-                g = int(color1[1] * (1 - ratio) + color2[1] * ratio)
-                b = int(color1[2] * (1 - ratio) + color2[2] * ratio)
-                image.putpixel((x, y), (r, g, b))
+        # Download the image
+        img_response = requests.get(image_url)
+        img_response.raise_for_status()
 
-        return image
+        return img_response.content
 
-    def generate_image(self, post):
-        """Generate an image for a post."""
-        width, height = 800, 400
-        color1, color2 = self.get_color_scheme(post)
+    def resize_image(self, image_data, target_size=(800, 400)):
+        """Resize image to target dimensions."""
+        if not HAS_PILLOW:
+            return image_data
 
-        # Create gradient background
-        image = self.create_gradient(width, height, color1, color2)
-        draw = ImageDraw.Draw(image)
+        img = Image.open(BytesIO(image_data))
+        img = img.resize(target_size, Image.Resampling.LANCZOS)
 
-        # Try to load a font, fall back to default
-        font_size = 56
-        try:
-            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
-        except (IOError, OSError):
-            try:
-                font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", font_size)
-            except (IOError, OSError):
-                font = ImageFont.load_default()
+        buffer = BytesIO()
+        img.save(buffer, format='PNG', optimize=True)
+        buffer.seek(0)
 
-        # Wrap and draw title
-        title = post.title[:80]  # Limit title length
-        lines = self.wrap_text(title, font, width - 80, draw)
-
-        # Calculate vertical position to center text
-        line_height = font_size + 14
-        total_height = len(lines) * line_height
-        y_start = (height - total_height) // 2
-
-        # Draw text with strong outline for better readability
-        for i, line in enumerate(lines):
-            bbox = draw.textbbox((0, 0), line, font=font)
-            text_width = bbox[2] - bbox[0]
-            x = (width - text_width) // 2
-            y = y_start + i * line_height
-
-            # Draw black outline (multiple passes for thickness)
-            outline_color = (0, 0, 0)
-            for offset_x in range(-3, 4):
-                for offset_y in range(-3, 4):
-                    if offset_x != 0 or offset_y != 0:
-                        draw.text((x + offset_x, y + offset_y), line, font=font, fill=outline_color)
-
-            # Main white text
-            draw.text((x, y), line, font=font, fill=(255, 255, 255))
-
-        # Add tag indicator at bottom with outline
-        tags = [t.caption for t in post.tags.all()[:3]]
-        if tags:
-            tag_text = ' | '.join(tags)
-            try:
-                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 22)
-            except (IOError, OSError):
-                small_font = font
-            tag_x, tag_y = 20, height - 40
-            # Outline for tags
-            for ox in range(-2, 3):
-                for oy in range(-2, 3):
-                    if ox != 0 or oy != 0:
-                        draw.text((tag_x + ox, tag_y + oy), tag_text.upper(), font=small_font, fill=(0, 0, 0))
-            draw.text((tag_x, tag_y), tag_text.upper(), font=small_font, fill=(255, 255, 255))
-
-        return image
+        return buffer.read()
 
     def handle(self, *args, **options):
-        if not HAS_PILLOW:
-            self.stdout.write(self.style.ERROR('Pillow is required. Run: pip install Pillow'))
+        api_key = os.environ.get('OPENAI_API_KEY')
+
+        if not api_key:
+            self.stdout.write(self.style.ERROR(
+                'OPENAI_API_KEY environment variable is required.\n'
+                'Set it with: fly secrets set OPENAI_API_KEY="sk-..." --app deveric-blog'
+            ))
             return
 
+        if not HAS_OPENAI:
+            self.stdout.write(self.style.ERROR('OpenAI package required. Run: pip install openai'))
+            return
+
+        client = OpenAI(api_key=api_key)
+
         overwrite = options['overwrite']
+        dry_run = options['dry_run']
 
         if overwrite:
             posts = Post.objects.all()
@@ -191,26 +163,43 @@ class Command(BaseCommand):
         posts_media = os.path.join(settings.MEDIA_ROOT, 'posts')
         os.makedirs(posts_media, exist_ok=True)
 
-        generated = 0
-        for post in posts:
-            try:
-                image = self.generate_image(post)
+        total = posts.count()
+        self.stdout.write(f'Generating images for {total} posts...\n')
+        self.stdout.write(f'Estimated cost: ${total * 0.04:.2f} - ${total * 0.08:.2f}\n')
 
-                # Save to BytesIO
-                buffer = BytesIO()
-                image.save(buffer, format='PNG', optimize=True)
-                buffer.seek(0)
+        if dry_run:
+            self.stdout.write('\n--- DRY RUN (no images generated) ---\n')
+            for post in posts[:5]:
+                prompt = self.create_prompt(post)
+                self.stdout.write(f'\n{post.title[:50]}...')
+                self.stdout.write(f'Prompt: {prompt[:200]}...\n')
+            return
+
+        generated = 0
+        failed = 0
+
+        for i, post in enumerate(posts, 1):
+            try:
+                self.stdout.write(f'[{i}/{total}] {post.title[:40]}... ', ending='')
+
+                prompt = self.create_prompt(post)
+                image_data = self.generate_with_dalle(client, prompt)
+
+                # Resize to blog dimensions
+                image_data = self.resize_image(image_data)
 
                 # Generate filename from slug
                 filename = f"{post.slug[:50]}.png"
 
                 # Save to post
-                post.image.save(filename, ContentFile(buffer.read()), save=True)
+                post.image.save(filename, ContentFile(image_data), save=True)
 
                 generated += 1
-                self.stdout.write(f'  Generated: {post.title[:50]}...')
+                self.stdout.write(self.style.SUCCESS('Done'))
 
             except Exception as e:
-                self.stdout.write(self.style.WARNING(f'  Failed for {post.title[:30]}: {e}'))
+                failed += 1
+                self.stdout.write(self.style.WARNING(f'Failed: {e}'))
 
-        self.stdout.write(self.style.SUCCESS(f'\nDone! Generated {generated} images.'))
+        self.stdout.write(self.style.SUCCESS(f'\nComplete! Generated: {generated}, Failed: {failed}'))
+        self.stdout.write(f'Estimated cost: ~${generated * 0.04:.2f}')

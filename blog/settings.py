@@ -3,10 +3,6 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Detect Fly.io environment
-FLY_APP_NAME = os.getenv('FLY_APP_NAME')
-IS_FLY = FLY_APP_NAME is not None
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
@@ -14,22 +10,19 @@ DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.fly.dev',
-    '.internal',
     'blog.ericgitangu.com',
-    'deveric-blog.azurewebsites.net',
     'developer.ericgitangu.com',
+    '.run.app',
 ]
 
-# Allow Fly.io internal health check IPs
-if IS_FLY:
+# Cloud Run sets K_SERVICE; allow all on managed infra for health checks
+if os.getenv('K_SERVICE'):
     ALLOWED_HOSTS.append('*')
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.fly.dev',
     'https://blog.ericgitangu.com',
-    'https://deveric-blog.azurewebsites.net',
     'https://developer.ericgitangu.com',
+    'https://*.run.app',
 ]
 
 INSTALLED_APPS = [
@@ -73,27 +66,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 
-# Database configuration
-if IS_FLY:
-    # Fly.io provides DATABASE_URL
-    import dj_database_url
+# Database — DATABASE_URL takes precedence (Cloud Run / CI); fallback to SQLite for local dev
+import dj_database_url as _dj_db_url
+
+_db_url = os.getenv('DATABASE_URL')
+if _db_url:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv('DATABASE_URL'),
+        'default': _dj_db_url.config(
+            default=_db_url,
             conn_max_age=600,
             conn_health_checks=True,
         )
     }
 else:
-    # Local development or Azure config
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': os.getenv('DBNAME'),
-            'USER': os.getenv('DBUSER'),
-            'PASSWORD': os.getenv('DBPASS'),
-            'HOST': os.getenv('DBHOST'),
-            'PORT': os.getenv('DBPORT'),
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
@@ -124,10 +113,7 @@ STORAGES = {
 }
 
 # Media files
-if IS_FLY:
-    MEDIA_ROOT = '/data/media'  # Fly Volume mount point
-else:
-    MEDIA_ROOT = BASE_DIR / 'uploads'
+MEDIA_ROOT = BASE_DIR / 'uploads'
 
 MEDIA_URL = '/media/'
 
@@ -136,8 +122,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Security settings for production
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    # SSL redirect handled by Fly.io proxy (force_https in fly.toml)
-    # Disable Django's redirect to allow internal health checks
+    # Cloud Run handles TLS termination upstream; Django must not redirect
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True

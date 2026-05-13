@@ -68,6 +68,28 @@
   background: #9ca3af;
 }
 
+/* Compact prose for card excerpts — tighten spacing so rendered markdown fits */
+.prose-sm h1, .prose-sm h2, .prose-sm h3, .prose-sm h4, .prose-sm h5, .prose-sm h6 {
+  font-size: inherit;
+  margin: 0;
+  font-weight: 600;
+  display: inline;
+}
+
+.prose-sm p {
+  margin: 0;
+  display: inline;
+}
+
+.prose-sm ul, .prose-sm ol {
+  margin: 0;
+  padding-left: 1em;
+}
+
+.prose-sm li {
+  margin: 0;
+}
+
 /* Prose styling for markdown content */
 .prose {
   line-height: 1.75;

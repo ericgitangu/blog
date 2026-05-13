@@ -44,11 +44,13 @@ def plaintext(text):
     import html as html_module
     plain = html_module.unescape(plain)
 
-    # Normalize whitespace: collapse multiple spaces/newlines into single space
-    plain = re.sub(r'\s+', ' ', plain).strip()
+    # Strip markdown syntax that survived (e.g. inline headers, bold, links)
+    plain = re.sub(r'#{1,6}\s*', '', plain)          # headers
+    plain = re.sub(r'\*{1,3}([^*]+)\*{1,3}', r'\1', plain)  # bold/italic
+    plain = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', plain)   # links
+    plain = re.sub(r'`([^`]+)`', r'\1', plain)       # inline code
 
-    # Remove any remaining special characters that might cause spacing issues
-    plain = re.sub(r'[\u00a0\u2003\u2002\u2009]', ' ', plain)  # various space characters
+    # Normalize whitespace
     plain = re.sub(r'\s+', ' ', plain).strip()
 
     return plain

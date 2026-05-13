@@ -16,10 +16,10 @@
                            line-clamp-2 break-words hyphens-auto leading-tight">
                     {{ post.title|truncatewords:8 }}
                 </h3>
-                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2
-                          line-clamp-3 leading-relaxed tracking-normal">
-                    {{ post.excerpt|plaintext|truncatewords:20 }}
-                </p>
+                <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2
+                            line-clamp-3 leading-relaxed tracking-normal prose prose-sm dark:prose-invert">
+                    {{ post.excerpt|markdown|truncatewords_html:20 }}
+                </div>
             </div>
         </a>
     </article>

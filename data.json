@@ -1,1 +1,1189 @@
-[{"model": "auth.permission", "pk": 1, "fields": {"name": "Can add author", "content_type": 1, "codename": "add_author"}}, {"model": "auth.permission", "pk": 2, "fields": {"name": "Can change author", "content_type": 1, "codename": "change_author"}}, {"model": "auth.permission", "pk": 3, "fields": {"name": "Can delete author", "content_type": 1, "codename": "delete_author"}}, {"model": "auth.permission", "pk": 4, "fields": {"name": "Can view author", "content_type": 1, "codename": "view_author"}}, {"model": "auth.permission", "pk": 5, "fields": {"name": "Can add tag", "content_type": 2, "codename": "add_tag"}}, {"model": "auth.permission", "pk": 6, "fields": {"name": "Can change tag", "content_type": 2, "codename": "change_tag"}}, {"model": "auth.permission", "pk": 7, "fields": {"name": "Can delete tag", "content_type": 2, "codename": "delete_tag"}}, {"model": "auth.permission", "pk": 8, "fields": {"name": "Can view tag", "content_type": 2, "codename": "view_tag"}}, {"model": "auth.permission", "pk": 9, "fields": {"name": "Can add post", "content_type": 3, "codename": "add_post"}}, {"model": "auth.permission", "pk": 10, "fields": {"name": "Can change post", "content_type": 3, "codename": "change_post"}}, {"model": "auth.permission", "pk": 11, "fields": {"name": "Can delete post", "content_type": 3, "codename": "delete_post"}}, {"model": "auth.permission", "pk": 12, "fields": {"name": "Can view post", "content_type": 3, "codename": "view_post"}}, {"model": "auth.permission", "pk": 13, "fields": {"name": "Can add comments", "content_type": 4, "codename": "add_comments"}}, {"model": "auth.permission", "pk": 14, "fields": {"name": "Can change comments", "content_type": 4, "codename": "change_comments"}}, {"model": "auth.permission", "pk": 15, "fields": {"name": "Can delete comments", "content_type": 4, "codename": "delete_comments"}}, {"model": "auth.permission", "pk": 16, "fields": {"name": "Can view comments", "content_type": 4, "codename": "view_comments"}}, {"model": "auth.permission", "pk": 17, "fields": {"name": "Can add log entry", "content_type": 5, "codename": "add_logentry"}}, {"model": "auth.permission", "pk": 18, "fields": {"name": "Can change log entry", "content_type": 5, "codename": "change_logentry"}}, {"model": "auth.permission", "pk": 19, "fields": {"name": "Can delete log entry", "content_type": 5, "codename": "delete_logentry"}}, {"model": "auth.permission", "pk": 20, "fields": {"name": "Can view log entry", "content_type": 5, "codename": "view_logentry"}}, {"model": "auth.permission", "pk": 21, "fields": {"name": "Can add permission", "content_type": 6, "codename": "add_permission"}}, {"model": "auth.permission", "pk": 22, "fields": {"name": "Can change permission", "content_type": 6, "codename": "change_permission"}}, {"model": "auth.permission", "pk": 23, "fields": {"name": "Can delete permission", "content_type": 6, "codename": "delete_permission"}}, {"model": "auth.permission", "pk": 24, "fields": {"name": "Can view permission", "content_type": 6, "codename": "view_permission"}}, {"model": "auth.permission", "pk": 25, "fields": {"name": "Can add group", "content_type": 7, "codename": "add_group"}}, {"model": "auth.permission", "pk": 26, "fields": {"name": "Can change group", "content_type": 7, "codename": "change_group"}}, {"model": "auth.permission", "pk": 27, "fields": {"name": "Can delete group", "content_type": 7, "codename": "delete_group"}}, {"model": "auth.permission", "pk": 28, "fields": {"name": "Can view group", "content_type": 7, "codename": "view_group"}}, {"model": "auth.permission", "pk": 29, "fields": {"name": "Can add user", "content_type": 8, "codename": "add_user"}}, {"model": "auth.permission", "pk": 30, "fields": {"name": "Can change user", "content_type": 8, "codename": "change_user"}}, {"model": "auth.permission", "pk": 31, "fields": {"name": "Can delete user", "content_type": 8, "codename": "delete_user"}}, {"model": "auth.permission", "pk": 32, "fields": {"name": "Can view user", "content_type": 8, "codename": "view_user"}}, {"model": "auth.permission", "pk": 33, "fields": {"name": "Can add content type", "content_type": 9, "codename": "add_contenttype"}}, {"model": "auth.permission", "pk": 34, "fields": {"name": "Can change content type", "content_type": 9, "codename": "change_contenttype"}}, {"model": "auth.permission", "pk": 35, "fields": {"name": "Can delete content type", "content_type": 9, "codename": "delete_contenttype"}}, {"model": "auth.permission", "pk": 36, "fields": {"name": "Can view content type", "content_type": 9, "codename": "view_contenttype"}}, {"model": "auth.permission", "pk": 37, "fields": {"name": "Can add session", "content_type": 10, "codename": "add_session"}}, {"model": "auth.permission", "pk": 38, "fields": {"name": "Can change session", "content_type": 10, "codename": "change_session"}}, {"model": "auth.permission", "pk": 39, "fields": {"name": "Can delete session", "content_type": 10, "codename": "delete_session"}}, {"model": "auth.permission", "pk": 40, "fields": {"name": "Can view session", "content_type": 10, "codename": "view_session"}}, {"model": "auth.user", "pk": 1, "fields": {"password": "pbkdf2_sha256$600000$Qs9mOrMDzqTGrVqvGJPBIo$h3qI2n9qfxPf3podQoKdu/Ug70Ba7n/v1CIPuI4qAHs=", "last_login": "2023-05-09T03:04:57.225Z", "is_superuser": true, "username": "deveric", "first_name": "", "last_name": "", "email": "developer.ericgitangu@gmail.com", "is_staff": true, "is_active": true, "date_joined": "2023-05-09T01:25:33.264Z", "groups": [], "user_permissions": []}}, {"model": "contenttypes.contenttype", "pk": 1, "fields": {"app_label": "portfolio", "model": "author"}}, {"model": "contenttypes.contenttype", "pk": 2, "fields": {"app_label": "portfolio", "model": "tag"}}, {"model": "contenttypes.contenttype", "pk": 3, "fields": {"app_label": "portfolio", "model": "post"}}, {"model": "contenttypes.contenttype", "pk": 4, "fields": {"app_label": "portfolio", "model": "comments"}}, {"model": "contenttypes.contenttype", "pk": 5, "fields": {"app_label": "admin", "model": "logentry"}}, {"model": "contenttypes.contenttype", "pk": 6, "fields": {"app_label": "auth", "model": "permission"}}, {"model": "contenttypes.contenttype", "pk": 7, "fields": {"app_label": "auth", "model": "group"}}, {"model": "contenttypes.contenttype", "pk": 8, "fields": {"app_label": "auth", "model": "user"}}, {"model": "contenttypes.contenttype", "pk": 9, "fields": {"app_label": "contenttypes", "model": "contenttype"}}, {"model": "contenttypes.contenttype", "pk": 10, "fields": {"app_label": "sessions", "model": "session"}}, {"model": "sessions.session", "pk": "39pm9crf1m7sjt2x47n5perevfy2wtjw", "fields": {"session_data": ".eJxVjMsOwiAQRf-FtSHhNRSX7v0GMjCDVA0kpV0Z_12bdKHbe865LxFxW2vcBi9xJnEWSpx-t4T5wW0HdMd26zL3ti5zkrsiDzrktRM_L4f7d1Bx1G-NtjhrA4AppVgdFFgTtEeAhB7zRAkmDpy0LUVhAkdaKeWJtDM6sBPvD9q2N7I:1pwDer:WfHi0_HA4vtgi-fyy-EZEOGEHlMowfoMTpoz8P7_QW4", "expire_date": "2023-05-23T03:04:57.226Z"}}]
+[
+{
+  "model": "portfolio.author",
+  "pk": 1,
+  "fields": {
+    "first_name": "Eric",
+    "last_name": "Gitangu",
+    "email": "developer.ericgitangu@gmail.com"
+  }
+},
+{
+  "model": "portfolio.post",
+  "pk": 1,
+  "fields": {
+    "title": "Follow me on LinkedIn!",
+    "slug": "follow-me-on-linkedin",
+    "content": "Follow me on <a href=\"https://linkedin.com/in/ericgitangu\">LinkedIn!</a> where I talk about #blockchaindevelopment, #fullstackdevelopment, #jamstack, #cloudcomputing, and #mobileappdevelopment. Let me know if you have any suggestions on what to share! ✒️ #share #linkedin",
+    "date": "2022-12-16T23:11:43Z",
+    "image": "posts/linkedin.png",
+    "author": 1,
+    "excerpt": "Follow me on LinkedIn where I share my latest posts and projects.",
+    "tags": [
+      3
+    ]
+  }
+},
+{
+  "model": "portfolio.post",
+  "pk": 2,
+  "fields": {
+    "title": "Programming Is Fun!",
+    "slug": "programming-is-fun",
+    "content": "Thought I'd spend my Friday night coining my alias Deveric by christening it with my official portfolio Full Stack site, done with the frontend more stuff coming for the backend <a href=\"https://lnkd.in/djTV-Art\">NextJS13 porfolio</a>  #frontend #backend #nextjs #typescript #seo #vercel",
+    "date": "2022-12-30T23:13:19Z",
+    "image": "posts/coding.jpg",
+    "author": 1,
+    "excerpt": "Learning new tech stacks is fun right? Yep - that's what I did one Friday night, exploring the exciting features introduced in NextJS13...",
+    "tags": [
+      2
+    ]
+  }
+},
+{
+  "model": "portfolio.post",
+  "pk": 3,
+  "fields": {
+    "title": "Is the AI race ethical?",
+    "slug": "is-the-ai-race-ethical",
+    "content": "With several tech giants embattled in an <a href=\"https://dpmd.ai/alphacode-science-li\">#AI</a> race, should this be a concern? Coupled with the diversity misrepresentation shouldn't we be concerned about the potential pitfalls of this powerful technology?, it could be the tipping point... my 2ç 🤔",
+    "date": "2023-02-02T23:15:11Z",
+    "image": "posts/ai.jpg",
+    "author": 1,
+    "excerpt": "Technology is amazing! But is the ongoing AI race amongst the tech giants ethical?",
+    "tags": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "portfolio.tag",
+  "pk": 1,
+  "fields": {
+    "caption": "#AI"
+  }
+},
+{
+  "model": "portfolio.tag",
+  "pk": 2,
+  "fields": {
+    "caption": "#Programming"
+  }
+},
+{
+  "model": "portfolio.tag",
+  "pk": 3,
+  "fields": {
+    "caption": "#Networking"
+  }
+},
+{
+  "model": "portfolio.comments",
+  "pk": 36,
+  "fields": {
+    "name": "Eric Gitangu",
+    "email": "developer.ericgitangu@gmail.com",
+    "comment": "This is dope!",
+    "post": 3,
+    "date": "2023-04-15T02:18:57.396Z"
+  }
+},
+{
+  "model": "portfolio.comments",
+  "pk": 37,
+  "fields": {
+    "name": "Ethereum",
+    "email": "eth@ethereum.io",
+    "comment": "Do we really need all our apps decentralized?🤔",
+    "post": 3,
+    "date": "2023-04-15T02:19:47.296Z"
+  }
+},
+{
+  "model": "portfolio.comments",
+  "pk": 38,
+  "fields": {
+    "name": "Amazon Clone",
+    "email": "developer.ericgitangu@gmail.com",
+    "comment": "Amazon Clone!",
+    "post": 1,
+    "date": "2023-04-16T00:29:55.668Z"
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$vbBleTm4ZDRgJNhH38YgbZ$zMwXcdoMp21wcb+KvfyW7mwa2BdGiD2F4fW/exfeeUA=",
+    "last_login": "2023-04-14T19:04:21.171Z",
+    "is_superuser": true,
+    "username": "eric",
+    "first_name": "",
+    "last_name": "",
+    "email": "developer.ericgitangu@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-04-05T23:08:39.296Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "paro7fngdrz8e28tg5qlq4rhfhl2z5eg",
+  "fields": {
+    "session_data": "eyJzdG9yZWRfcG9zdHMiOlszXX0:1pnqMp:KZjqTvRGh7GzZr1-__hC9rcWp5P4eY0So1k0s0_LFkI",
+    "expire_date": "2023-04-30T00:35:43.112Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "slen5wmi0p0cwurr1bkgqvbk34yrdkvt",
+  "fields": {
+    "session_data": ".eJxVjMsOgjAQRf-la9MUykyBpXu-wJimjxlBDTW0rIz_LiQsdHvPuectrFvLaNdMi52i6EUlTr-bd-FB8w7i3c23JEOayzJ5uSvyoFkOKdLzfLh_gdHlcXubUBE6ozTo2itDjVGMgBzbhhTqhlF3HoJjU0cGFxE6CK1mBagUMm_RXNJC0b5SLln0l-vnC_HsPgs:1po5TC:ORclsa0zPOQ25PwciRce9Uk1r7cq0w4IVNsOwYgbLHA",
+    "expire_date": "2023-04-30T16:43:18.915Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "w6xi41mb14f2f2alncwg8facvk6qgo2s",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyGFZSl69O43ENgFqRqalPZk_Hdp0oMe5jLvzbyFD9ta_NbS4icWF6HE6beLgZ6p7oAfod5nSXNdlynKXZEHbfI2c3pdD_fvoIRW-toB2swxj1E51mbQDkghYs7GotXJGcAeYkMA9kzE2MmowBrF0Q7i8wXHlTbw:1pkCGB:-wK73N1L0-OTEMzRhMouX0WEsIeIQdt6NoAu2RPed8E",
+    "expire_date": "2023-04-19T23:09:47.325Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yw6m28k3q9qshdxfu3sv0kgpls77cvh3",
+  "fields": {
+    "session_data": "eyJzdG9yZWRfcG9zdHMiOlszXX0:1pnr8E:4V-AKi2siv99PIMWlgVcS56mHGmoMh73ncNW4JWElL0",
+    "expire_date": "2023-04-30T01:24:42.997Z"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2023-04-05T23:10:43.699Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "author"
+    ],
+    "object_id": "1",
+    "object_repr": "Eric Gitangu",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2023-04-05T23:11:09.009Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "1",
+    "object_repr": "AI",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2023-04-05T23:11:23.304Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "2",
+    "object_repr": "Programming",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2023-04-05T23:11:33.932Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "3",
+    "object_repr": "Networking",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2023-04-05T23:13:19.706Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "1",
+    "object_repr": "Follow me on LinkedIn!",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2023-04-05T23:15:11.021Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "2",
+    "object_repr": "Programming Is Fun!",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2023-04-05T23:16:56.663Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2023-04-05T23:54:23.566Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "3",
+    "object_repr": "#Networking",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Caption\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2023-04-05T23:54:34.802Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "2",
+    "object_repr": "#Programming",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Caption\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2023-04-05T23:54:41.749Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "tag"
+    ],
+    "object_id": "1",
+    "object_repr": "#AI",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Caption\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2023-04-14T19:50:09.596Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "2",
+    "object_repr": "Programming Is Fun!",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2023-04-14T19:50:55.785Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "1",
+    "object_repr": "Follow me on LinkedIn!",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2023-04-14T19:51:16.443Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2023-04-14T20:29:53.086Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Tags\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2023-04-14T20:30:37.217Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2023-04-14T20:30:51.710Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2023-04-14T20:31:51.303Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Date\", \"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2023-04-14T20:32:13.695Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "2",
+    "object_repr": "Programming Is Fun!",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Date\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2023-04-14T20:32:44.891Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "1",
+    "object_repr": "Follow me on LinkedIn!",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Date\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2023-04-14T20:41:30.093Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2023-04-14T22:32:16.280Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2023-04-14T22:32:50.218Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "post"
+    ],
+    "object_id": "3",
+    "object_repr": "Is the AI race ethical?",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Content\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.588Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "1",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:10:25 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.592Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "2",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:43:17 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.594Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "3",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:55:46 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.596Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "4",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:57:57 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.599Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "5",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:58:34 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.601Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "6",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Fri Apr 14 23:59:17 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.602Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "7",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:01:14 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.604Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "8",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:03:50 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.607Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "9",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:05:32 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.609Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "10",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:09:07 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.611Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "11",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:09:36 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.613Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "12",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:11:33 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.615Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "13",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:12:38 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.617Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "14",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:13:32 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.619Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "15",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:14:05 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.621Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "16",
+    "object_repr": "Ethereum commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:38:40 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.623Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "17",
+    "object_repr": "Ethereum commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:39:49 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.626Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "18",
+    "object_repr": "Ethereum commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:40:20 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.628Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "19",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:41:27 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.630Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "20",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:42:52 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.633Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "21",
+    "object_repr": "Coinbase commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:48:55 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.634Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "22",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:50:40 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.636Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "23",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:51:45 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.638Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "24",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:53:33 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.640Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "25",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:55:19 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.642Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "26",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:55:49 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.645Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "27",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:56:08 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.647Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "28",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:56:55 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.649Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "29",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 00:57:49 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.651Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "30",
+    "object_repr": "aadsad commented on \"Is the AI race ethical?\", submitted Sat Apr 15 01:58:46 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.652Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "31",
+    "object_repr": "aadsad commented on \"Is the AI race ethical?\", submitted Sat Apr 15 02:00:38 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.655Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "32",
+    "object_repr": "aadsad commented on \"Is the AI race ethical?\", submitted Sat Apr 15 02:01:31 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.657Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "33",
+    "object_repr": "aadsad commented on \"Is the AI race ethical?\", submitted Sat Apr 15 02:02:09 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.659Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "34",
+    "object_repr": "Eric Gee commented on \"Is the AI race ethical?\", submitted Sat Apr 15 02:06:19 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2023-04-15T02:18:10.663Z",
+    "user": [
+      "eric"
+    ],
+    "content_type": [
+      "portfolio",
+      "comments"
+    ],
+    "object_id": "35",
+    "object_repr": "Eric Gitangu commented on \"Is the AI race ethical?\", submitted Sat Apr 15 02:10:01 2023",
+    "action_flag": 3,
+    "change_message": ""
+  }
+}
+]
